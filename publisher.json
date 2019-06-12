@@ -11,6 +11,7 @@
     "security": [
         "nosec_sc"
     ],
+    "support":"https://github.com/egekorkan/wot-implementations",
     "properties": {
         "oneOfTest": {
             "readOnly":true,
