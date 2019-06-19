@@ -27,7 +27,7 @@ def on_message(client, userdata, msg):
     
     if (msg.topic == "testOneOf"):
         rNumber = uniform(1, 10)
-        print(rNumber)
+        # print(rNumber)
         if (rNumber < 3):
             client.publish("oneOfTest","smaller than 3")
         elif (rNumber < 7):
@@ -37,7 +37,7 @@ def on_message(client, userdata, msg):
       
     if (msg.topic == "testMaxItems"):
         rNumber = uniform(1, 10)
-        print(rNumber)
+        # print(rNumber)
         if (rNumber < 3):
             client.publish("maxItemsTest", json.dumps((1, 2, 2)))
         elif (rNumber < 7):
