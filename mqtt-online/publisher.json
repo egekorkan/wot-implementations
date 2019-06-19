@@ -11,7 +11,7 @@
     "security": [
         "nosec_sc"
     ],
-    "support":"https://github.com/egekorkan/wot-implementations",
+    "support": "https://github.com/egekorkan/wot-implementations/tree/master/mqtt-online",
     "properties": {
         "oneOfTest": {
             "readOnly":true,

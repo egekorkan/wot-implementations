@@ -1,8 +1,9 @@
 {
     "@context": "https://www.w3.org/2019/wot/td/v1",
-    "id": "urn:dev:ops:32473-WoTPublisher-1234",
+    "id": "urn:dev:ops:32473-WoTPublisher-1235",
     "title": "MyPublisher",
     "description": "A Thing demonstrating how to use observe, unobserve property as well as readproperty with MQTT",
+    "brokerInfo":"Node-RED test broker with Mosca",
     "securityDefinitions": {
         "nosec_sc": {
             "scheme": "nosec"
@@ -11,7 +12,7 @@
     "security": [
         "nosec_sc"
     ],
-    "support":"https://github.com/egekorkan/wot-implementations",
+    "support": "https://github.com/egekorkan/wot-implementations/tree/master/mqtt-hosted-retain",
     "properties": {
         "temperature": {
             "readOnly":true,
