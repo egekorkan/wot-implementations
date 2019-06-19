@@ -2,7 +2,7 @@
     "@context": "https://www.w3.org/2019/wot/td/v1",
     "id": "urn:dev:ops:32473-WoTPublisher-1234",
     "title": "MyPublisher",
-    "description": "A Thing demonstrating how to use observe and unobserve property",
+    "description": "A Thing demonstrating how to use observe, unobserve property as well as readproperty with MQTT",
     "securityDefinitions": {
         "nosec_sc": {
             "scheme": "nosec"
@@ -13,56 +13,27 @@
     ],
     "support":"https://github.com/egekorkan/wot-implementations",
     "properties": {
-        "oneOfTest": {
+        "temperature": {
             "readOnly":true,
             "writeOnly": false,
-            "oneOf": [
-                {
-                    "type": "string"
-                }, 
-                {
-                    "type": "integer"
-                }, 
-                {
-                    "type": "null"
-                }
-            ],
             "forms": [
                 {
-                    "href": "mqtt://iot.eclipse.org/oneOfTest",
-                    "contentType":"application/json",
+                    "href": "mqtt://0m2m.net/temperature",
+                    "contentType":"text/plain",
                     "op":"observeproperty",
                     "mqtt:commandCode":8
                 },
                 {
-                    "href": "mqtt://iot.eclipse.org/oneOfTest",
-                    "contentType": "application/json",
+                    "href": "mqtt://0m2m.net/temperature",
+                    "contentType": "text/plain",
                     "op": "unobserveproperty",
                     "mqtt:methodCode": 10
-                }
-            ]
-        },
-        "maxItemsTest": {
-            "readOnly": true,
-            "writeOnly": false,
-            "type": "array",
-            "items":{
-                "type":"integer"
-            },
-            "maxItems":5,
-            "minItems": 2,
-            "forms": [
-                {
-                    "href": "mqtt://iot.eclipse.org/maxItemsTest",
-                    "contentType": "application/json",
-                    "op": "observeproperty",
-                    "mqtt:commandCode": 8
                 },
                 {
-                    "href": "mqtt://iot.eclipse.org/maxItemsTest",
-                    "contentType": "application/json",
-                    "op": "unobserveproperty",
-                    "mqtt:methodCode": 10
+                    "href": "mqtt://0m2m.net/temperature",
+                    "contentType": "text/plain",
+                    "op": "readproperty",
+                    "mqtt:commandCode": 8
                 }
             ]
         }
