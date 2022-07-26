@@ -82,7 +82,7 @@ def on_message(client, userdata, msg):
         with gzip.open('seattle-weather-hourly-normals.csv.gz', 'rb') as f:
             file_content = f.read()
             client.publish("EgeMyPublisher/formEncodingTest",file_content,retain=True)
-    if (msg.topic == "EgeMyPublisher/testAction"):
+    if (msg.topic == "EgeMyPublisher/testAction"): #FIXME: This actually does not work, it blocks the loop
         global elapsed
         toElapse = int(msg.payload)
         # info = client.publish("EgeMyPublisher/actionTest/remaining", json.dumps(toElapse-elapsed))
