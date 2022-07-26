@@ -3,6 +3,20 @@
 # maxItems in dataSchema
 # null schema in oneOf
 
+# TODO: td-context-default-language , so putting @language in @context
+# TODO: td-data-schema_contentMediaType and encoding
+# TODO: exclusiveMinMax
+# TODO: multipleOf
+# TODO: pattern
+# TODO: const
+# TODO: anchor link
+# TODO: contentCoding inside forms -> might be difficult
+# TODO: default
+# TODO: td-vocab-hreflang--Link
+# TODO: see about cancel and query actions
+# DONE: TODO: see about auto security
+# DONE TODO: sizes in links
+
 import paho.mqtt.client as mqtt
 from random import uniform
 import json
@@ -17,6 +31,8 @@ def on_connect(client, userdata, flags, rc):
     # reconnect then subscriptions will be renewed.
     client.subscribe("testOneOf")
     client.subscribe("testMaxItems")
+    f = open("publisher.json", "r")
+    client.publish("egeTestTD",f.read())
 
 # The callback for when a PUBLISH message is received from the server.
 

@@ -1,21 +1,23 @@
 {
-    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "@context": ["https://www.w3.org/2022/wot/td/v1.1",
+    { "@language" : "en" }],
     "id": "urn:dev:ops:32473-WoTPublisher-1234",
-    "title": "MyPublisher",
+    "title": "EgeMyPublisher",
     "description": "A Thing demonstrating how to use observe and unobserve property. You can publish to testOneOf or to testMaxItems to trigger the events",
     "securityDefinitions": {
-        "nosec_sc": {
-            "scheme": "nosec"
+        "auto_sc": {
+            "scheme": "auto"
         }
     },
     "security": [
-        "nosec_sc"
+        "auto_sc"
     ],
     "support": "https://github.com/egekorkan/wot-implementations/tree/master/mqtt-online",
     "properties": {
         "oneOfTest": {
             "readOnly":true,
             "writeOnly": false,
+            "observable":true,
             "oneOf": [
                 {
                     "type": "string"
@@ -29,16 +31,18 @@
             ],
             "forms": [
                 {
-                    "href": "mqtt://test.mosquitto.org/oneOfTest",
+                    "href": "mqtt://test.mosquitto.org",
+                    "mqv:topic":"EgeMyPublisher/oneOfTest",
                     "contentType":"application/json",
                     "op":"observeproperty",
-                    "mqtt:commandCode":8
+                    "mqv:controlPacket":"mqv:subscribe"
                 },
                 {
-                    "href": "mqtt://test.mosquitto.org/oneOfTest",
+                    "href": "mqtt://test.mosquitto.org",
+                    "mqv:topic":"EgeMyPublisher/oneOfTest",
                     "contentType": "application/json",
                     "op": "unobserveproperty",
-                    "mqtt:methodCode": 10
+                    "mqv:controlPacket":"mqv:unsubscribe"
                 }
             ]
         },
@@ -66,5 +70,31 @@
                 }
             ]
         }
-    }
+    },
+    "links": [{
+        "rel": "icon",
+        "href": "https://avatars.githubusercontent.com/u/20195407?s=64&v=4",
+        "type": "image/png",
+        "sizes":"64x64"
+    },
+    {
+        "rel": "icon",
+        "href": "https://github.com/egekorkan/wot-implementations/tree/master/mqtt-online",
+        "type": "image/png",
+        "sizes":"64x64"
+    }],
+    "forms":[{
+        "href": "mqtt://test.mosquitto.org",
+        "mqv:filter":"EgeMyPublisher/*",
+        "contentType":"application/json",
+        "op":"observeallproperties",
+        "mqv:controlPacket":"mqv:subscribe"
+    },
+    {
+        "href": "mqtt://test.mosquitto.org",
+        "mqv:filter":"EgeMyPublisher/*",
+        "contentType":"application/json",
+        "op":"unobserveallproperties",
+        "mqv:controlPacket":"mqv:unsubscribe"
+    }]
 }
