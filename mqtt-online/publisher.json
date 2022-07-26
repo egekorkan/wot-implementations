@@ -12,6 +12,15 @@
     "security": [
         "auto_sc"
     ],
+    "schemaDefinitions":{
+        "actionCancellation":{
+            "type":"string",
+            "const":"action canceled :-("
+        },
+        "actionQueryOutput":{
+            "type":"integer"
+        }
+    },
     "support": "https://github.com/egekorkan/wot-implementations/tree/master/mqtt-online",
     "properties": {
         "oneOfTest": {
@@ -150,14 +159,24 @@
                     "mqv:topic":"EgeMyPublisher/actionTest/remaining",
                     "contentType": "application/json",
                     "op": "queryaction",
-                    "mqv:controlPacket":"mqv:subscribe"
+                    "mqv:controlPacket":"mqv:subscribe",
+                    "additionalResponses":{
+                        "success":true,
+                        "contentType":"application/json",
+                        "schema":"actionQueryOutput"
+                    }
                 },
                 {
                     "href": "mqtt://test.mosquitto.org",
                     "mqv:topic":"EgeMyPublisher/actionTest/cancel",
                     "contentType": "application/json",
                     "op": "cancelaction",
-                    "mqv:controlPacket":"mqv:publish"
+                    "mqv:controlPacket":"mqv:publish",
+                    "additionalResponses":{
+                        "success":true,
+                        "contentType":"application/json",
+                        "schema":"actionCancellation"
+                    }
                 }
             ]
         }
