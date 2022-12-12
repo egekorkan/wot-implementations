@@ -15,7 +15,7 @@ import fs from 'fs';
 const app = express()
 app.use(express.json())
 const port = 8080
-const superSecretApiKey = "amazingPassword"
+const superSecretApiKey = "amazingKey"
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
@@ -32,12 +32,84 @@ app.get('/location', (req, res) => {
     res.status(200).send({ value: currentLocation })
 })
 
-app.post('/moveTo', (req, res) => {
-    const requestedLocation = req.body;
-    console.log(requestedLocation)
-    setTimeout(() => {
-        res.status(200).send()
-    }, 1000)
+app.post('/actions/moveTo1', (req, res) => {
+    // console.log(req.body)
+    const requestedLocation = {
+        x: req.body.x,
+        y: req.body.y,
+        z: req.body.z
+    }
+
+    if(req.body.keyLocation){
+        if (req.body.keyLocation===superSecretApiKey){
+            setTimeout(() => {
+                console.log("Moving to",requestedLocation)
+                res.status(200).send()
+            }, 1000)
+        } else {
+            console.log("Wrong API Key")
+            res.status(401).send()
+        }
+    } else {
+        console.log("Missing API Key")
+        res.status(401).send()
+    }
+})
+
+app.post('/actions/moveTo2', (req, res) => {
+    console.log(req.body)
+    const requestedLocation = {
+        x: req.body.x,
+        y: req.body.y,
+        z: req.body.z
+    }
+
+    if(req.body.keyLocationInvisible){
+        if (req.body.keyLocationInvisible===superSecretApiKey){
+            setTimeout(() => {
+                console.log("Moving to",requestedLocation)
+                res.status(200).send()
+            }, 1000)
+        } else {
+            console.log("Wrong API Key")
+            res.status(401).send()
+        }
+    } else {
+        console.log("Missing API Key")
+        res.status(401).send()
+    }
+})
+
+app.post('/actions/moveInSequence', (req, res) => {
+    console.log(req.body)
+    const requestedLocation1 = {
+        x: req.body[0].x,
+        y: req.body[0].y,
+        z: req.body[0].z
+    }
+    const requestedLocation2 = {
+        x: req.body[1].x,
+        y: req.body[1].y,
+        z: req.body[1].z
+    }
+
+    if(req.body[2]){
+        if (req.body[2]===superSecretApiKey){
+            setTimeout(() => {
+                console.log("Moving to",requestedLocation1)
+                setTimeout(() => {
+                    console.log("Moving to",requestedLocation2)
+                    res.status(200).send()
+                }, 1000)
+            }, req.body[0].pause)
+        } else {
+            console.log("Wrong API Key")
+            res.status(401).send()
+        }
+    } else {
+        console.log("Missing API Key")
+        res.status(401).send()
+    }
 })
 
 app.get('/td', (req, res) => {
