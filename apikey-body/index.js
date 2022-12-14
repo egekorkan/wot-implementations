@@ -10,6 +10,7 @@
 */
 
 import express from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 
 const app = express()
@@ -28,8 +29,32 @@ const currentLocation = {
     z: 0
 }
 
+const bodyRaw = fs.readFileSync('./robot-apikey.td.jsonld', 'utf-8');
+const bodyTEXT = bodyRaw.replaceAll('${port}', port);
+let td = JSON.parse(bodyTEXT)
+td.id = "urn:uuid"+uuidv4()
+
+app.get('/:key/location', (req, res) => {
+    if(req.params.key === superSecretApiKey ){
+        res.status(200).send({ value: currentLocation })
+    } else {
+        console.log("Wrong API Key")
+        res.status(401).send()
+    }
+})
+
 app.get('/location', (req, res) => {
-    res.status(200).send({ value: currentLocation })
+    console.log("Missing API Key")
+    res.status(401).send()
+})
+
+app.get('/:key/currentOwner', (req, res) => {
+    if(req.params.key === superSecretApiKey ){
+        res.status(200).send({"name":"John","surname":"Doe","userId":"1f9d257f-a106-48cb-91b1-93143650da30"})
+    } else {
+        console.log("Wrong API Key")
+        res.status(401).send()
+    }
 })
 
 app.post('/actions/moveTo1', (req, res) => {
@@ -114,10 +139,12 @@ app.post('/actions/moveInSequence', (req, res) => {
 
 app.get('/td', (req, res) => {
     console.log("request for td")
-    const bodyRaw = fs.readFileSync('./robot.td.jsonld', 'utf-8');
-    const bodyTEXT = bodyRaw.replaceAll('${port}', port);
-    const body = JSON.parse(bodyTEXT)
-    res.status(200).send(body)
+    res.status(200).send(td)
+})
+
+app.post('/td/regenid', (req, res) => {
+    td.id = "urn:uuid:"+uuidv4()
+    res.status(200).send()
 })
 
 app.listen(port, async() => {
