@@ -3,7 +3,13 @@
     { "@language" : "en" }],
     "id": "urn:uuid:c2b126b3-4ef2-40e9-9cad-f768608fdd0d",
     "title": "MQTT Experimental",
+    "@type": "tm:ThingModel",
+    "version": {
+        "model": "1.0.0"
+    },
     "description": "A Thing demonstrating how to use observe and unobserve property. You can publish to testOneOf or to testMaxItems to trigger the events",
+    "descriptions": {"en":"A Thing demonstrating how to use observe and unobserve property. You can publish to testOneOf or to testMaxItems to trigger the events",
+"ar":"المِلَفّ الأول لل-Thing الخاص بي"},
     "securityDefinitions": {
         "auto_sc": {
             "scheme": "auto"

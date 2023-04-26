@@ -41,8 +41,13 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("EgeMyPublisher/testFormEncoding")
     client.subscribe("EgeMyPublisher/testAction")
     client.subscribe("EgeMyPublisher/testAction/cancel")
-    f = open("publisher.json", "r")
-    client.publish("EgeMyPublisher/egeTestTD",f.read(),retain=True)
+    f = open("publisher.tm.jsonld", "r")
+    tm = f.read()
+    tmJson = json.loads(tm)
+    # print(tmJson)
+    tmJson["@type"] = "Thing"
+    # print(tmJson)
+    client.publish("EgeMyPublisher/egeTestTD",json.dumps(tmJson),retain=True)
 
 # The callback for when a PUBLISH message is received from the server.
 
